@@ -1,0 +1,11 @@
+#!/bin/bash
+OGR2OGR=`which ogr2ogr`
+SHP_FILE="countries.shp"
+JSON_OUTPUT_FILE="countries.geojson"
+
+if [ -z $OGR2OGR ]; then
+    echo "ogr2ogr was not found. Please install GDAL. If installed, add the tools to your path"
+    exit -1
+fi
+
+$OGR2OGR -f GeoJSON -t_srs crs:84 $JSON_OUTPUT_FILE $SHP_FILE
