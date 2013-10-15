@@ -23,9 +23,20 @@ The python script does support command line options for customization purposes
                               [ -o <output_path> | --outputPath <output_path> ] |
                               [ -f | --force ]
                               
-               -k <arg>, --keyName <arg>     specify the attribute in the geojson properties object to use as primary key
-                                             this should be a unique identifier, preferably the country code
+               -k <arg>, --keyName <arg>     specify the attribute in the geojson properties object
+                                             to use as primary key
+                                             this should be a unique identifier, preferably the country 
+                                             code or another identifying value
+
                -i <arg> , --inputFile <arg>  specify the source geojson file to read in
-                                             this file should be a feature collection of first admin geometries deprojected to WGS84
-               -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be created in
-               -f , --force if supplied, existing files will be overwritten
+                                             this file should be a feature collection of first admin 
+                                             geometries deprojected to WGS84
+
+               -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be 
+                                             created in
+
+               -f , --force                  if supplied, existing files will be overwritten
+
+Upcoming features
+-----------------
+I plan to use the GDAL python bindings to handle the conversion of the shapefile rather than relying on the external shell script.
