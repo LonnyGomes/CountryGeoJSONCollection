@@ -5,13 +5,17 @@ import os
 
 inputFile="countries.geojson"
 featureKey="ne_10m_adm"
-outputPath = "./"
+outputPath = "geojson"
 #shouldLint = 1
 validate_endpoint = 'http://geojsonlint.com/validate'
 
-fp = open(inputFile)
-geoJSONList = fp.readlines()
-fp.close
+try:
+    fp = open(inputFile)
+    geoJSONList = fp.readlines()
+    fp.close
+except IOError:
+    print "Could not open geojson file for reading:" + inputFile
+    exit(-1)
 
 geoJSONData = json.loads(' '.join(geoJSONList))
 
@@ -23,7 +27,7 @@ for curFeature in geoFeatures:
 
     print "Creating geojson file for " + curKey
 
-    curFilename = outputPath + curKey + ".geojson"
+    curFilename = outputPath + os.sep +  curKey + ".geojson"
 
     if (os.path.exists(curFilename)):
         print "File already exists!"
@@ -34,6 +38,9 @@ for curFeature in geoFeatures:
     #print lint_request.json()
 
     #save out to file
-    fpo = open(curFilename, "w")
-    fpo.write(curGeoDataStr)
-    fpo.close()
+    try:
+        fpo = open(curFilename, "w")
+        fpo.write(curGeoDataStr)
+        fpo.close()
+    except IOError:
+        print "Failed to create file:" + curFilename
