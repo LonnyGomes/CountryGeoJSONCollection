@@ -21,6 +21,7 @@ The python script does support command line options for customization purposes
     ./genFirstAdminGeoJSON.py [ -k <key_name> | --keyName <key_name> ] | 
                               [ -i <input_file> | --inputFile <input_file> ] |
                               [ -o <output_path> | --outputPath <output_path> ] |
+                              [ -g <admin_key_name> | --genReadme <admin_key_name> ] |
                               [ -f | --force ]
                               
                -k <arg>, --keyName <arg>     specify the attribute in the geojson properties object
@@ -35,7 +36,24 @@ The python script does support command line options for customization purposes
                -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be 
                                              created in
 
+               -g <arg>, --genReadme <arg>   specify the ttribute in the geojson properties object that
+                                             contains the official name of the country.
+                                             The value is expected to be encoded in UTF-8
+
                -f , --force                  if supplied, existing files will be overwritten
+
+Examples
+--------
+
+The following example uses the python script given the following parameters
+- the primary key property in the GeoJSON is "country_code"
+- input file is names firstAdmin.geojson
+- the output folder is geo_data
+- a README.md is generated with the GeoJSON file with the admin name key being "country_name"
+
+    ./genFirstAdminGeoJSON.py -k country_code -i firstAdmin.geojson -o geo_data -g country_name
+
+The resulting geojson files should be stored in the geo_data folder (which must exist beforehand) with a README.md file that is also generated in the same folder.
 
 Upcoming features
 -----------------
