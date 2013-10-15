@@ -9,6 +9,7 @@ import string
 featureKey="ne_10m_adm"
 inputFile="countries.geojson"
 outputPath = "geojson"
+adminNameKey=None
 willForceUpdate=0
 #shouldLint = 1
 #validate_endpoint = 'http://geojsonlint.com/validate'
@@ -17,8 +18,8 @@ willForceUpdate=0
 #otherwise parse the command line for the options
 if len(sys.argv) > 1:
     #specify valid options
-    shortOpts = "k:i:of"
-    longOpts = [ "inputFile=", "outputPath=","keyName=","force"]
+    shortOpts = "k:i:o:g:f"
+    longOpts = [ "inputFile=", "outputPath=","keyName=","force", "genReadme="]
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], shortOpts, longOpts)
@@ -29,14 +30,17 @@ if len(sys.argv) > 1:
                 inputFile=arg
             elif opt in ("-o", "--outputPath"):
                 outputPath=arg
+            elif opt in ("-g", "--genReadme"):
+                adminNameKey=arg
             elif opt in ("-f", "--force"):
                 willForceUpdate = 1
 
     except getopt.GetoptError as e:
         print """Invalid syntax!
-        Usage: -k | --keyName <attribute key name in shape file> 
+        Usage: -k | --keyName <attribute key name in geojson file> 
                -i | --inputFile  <input geojson file> 
                -o | --outputPath <output path>
+               -g | --genReadme <attribute key for country name in geojson file>
                -f if supplied, existing files will be overwritten
         """
         sys.exit(-1)
@@ -51,7 +55,7 @@ try:
     print "DONE"
 except IOError:
     print "Could not open geojson file for reading:" + inputFile
-    exit(-1)
+    sys.exit(-1)
 
 print "Parsing ...",
 sys.stdout.flush()
@@ -60,11 +64,29 @@ print "DONE"
 
 geoFeatures = geoJSONData["features"]
 
+
+if adminNameKey:
+    readmePath = outputPath + os.sep + "README.md"
+    try:
+        fpAdmin = open(readmePath, "w")
+        fpAdmin.write("GeoJSON Countries list\n=====================\n")
+    except IOError:
+        print "Could not open %s for writing!" % readmePath
+        adminNameKey = None
+
 for curFeature in geoFeatures:
     curProperties = curFeature["properties"]
     curKey = curProperties[featureKey]
-
+    
     print "Creating geojson file for " + curKey
+
+    #if and admin key is defined, write out current country to readme file
+    if adminNameKey:
+        curAdminVal = curProperties[adminNameKey]
+        if (curAdminVal):
+            linkStr = u"[{0}] (../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
+            fpAdmin.write(linkStr.encode("utf-8"))
+
 
     curFilename = outputPath + os.sep +  curKey + ".geojson"
 
@@ -86,3 +108,6 @@ for curFeature in geoFeatures:
         fpo.close()
     except IOError:
         print "Failed to create file:" + curFilename
+
+if adminNameKey:
+    fpAdmin.close()
