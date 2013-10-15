@@ -84,7 +84,7 @@ for curFeature in geoFeatures:
     if adminNameKey:
         curAdminVal = curProperties[adminNameKey]
         if (curAdminVal):
-            linkStr = u"[{0}] (../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
+            linkStr = u" - [{0}] (../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
             fpAdmin.write(linkStr.encode("utf-8"))
 
 
