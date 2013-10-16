@@ -1,0 +1,28 @@
+{
+  "name": "CountryBoundaryJSONData",
+  "version": "1.0.0",
+  "description": "A collection of world country geospatial data in geojson and topojson format",
+  "main": "index.js",
+  "dependencies": {
+    "topojson": "~1.4.3",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LonnyGomes/CountryGeoJSONCollection.git"
+  },
+  "keywords": [
+    "cartography",
+    "geojson",
+    "topojson",
+    "gdal"
+  ],
+  "author": "Lonny Gomes",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "2ca7db42548df6515150a95b2cbaf800703e89ab"
+}
