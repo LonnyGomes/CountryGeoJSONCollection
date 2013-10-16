@@ -1,7 +1,7 @@
 Country GeoJSON Collection
 ==========================
 
-This is a collection of GeoJSON files of all first admin boundaries generated from the natural earth dataset.
+This is a collection of GeoJSON files of all country boundaries generated from the natural earth dataset.
 Currently only small scale geojson files are generated, the hope is to support larger scale representations.
 Feel free to use these files in your GIS projects.
 
@@ -15,10 +15,10 @@ Usage
 To make changes to the geojson files, replace the countries.shp and companying files wit your dataset.
 Then you must run the *convertShp2JSON* shell script that will generate a countries.geojson file.
 
-Next you must run the *genFirstAdminGeoJSON* python script. If run without arguments, the countries.geojson file will be read and everything is outputed into the geojson folder.
+Next you must run the *genCountriesGeoJSON* python script. If run without arguments, the countries.geojson file will be read and everything is outputed into the geojson folder.
 The python script does support command line options for customization purposes
 
-    ./genFirstAdminGeoJSON.py [ -k <key_name> | --keyName <key_name> ] | 
+    ./genCountriesGeoJSON.py  [ -k <key_name> | --keyName <key_name> ] | 
                               [ -i <input_file> | --inputFile <input_file> ] |
                               [ -o <output_path> | --outputPath <output_path> ] |
                               [ -g <admin_key_name> | --genReadme <admin_key_name> ] |
@@ -30,7 +30,7 @@ The python script does support command line options for customization purposes
                                              code or another identifying value
 
                -i <arg> , --inputFile <arg>  specify the source geojson file to read in
-                                             this file should be a feature collection of first admin 
+                                             this file should be a feature collection of country
                                              geometries deprojected to WGS84
 
                -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be 
@@ -47,11 +47,11 @@ Examples
 
 The following example uses the python script given the following parameters
 - the primary key property in the GeoJSON is "country_code"
-- input file is names firstAdmin.geojson
+- input file is names boundaries.geojson
 - the output folder is geo_data
 - a README.md is generated with the GeoJSON file with the admin name key being "country_name"
 
-    ./genFirstAdminGeoJSON.py -k country_code -i firstAdmin.geojson -o geo_data -g country_name
+    ./genCountriesGeoJSON.py -k country_code -i boundaries.geojson -o geo_data -g country_name
 
 The resulting geojson files should be stored in the geo_data folder (which must exist beforehand) with a README.md file that is also generated in the same folder.
 
