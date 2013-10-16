@@ -6,7 +6,7 @@ import sys
 import getopt
 import string
 
-featureKey="ne_10m_adm"
+featureKey="ADM0_A3"
 inputFile="countries.geojson"
 outputPath = "geojson"
 adminNameKey=None
@@ -95,7 +95,7 @@ for curFeature in geoFeatures:
             os.remove(curFilename)
         else:
             print "File already exists!"
-            next
+            continue
     
     curGeoDataStr = json.dumps(curFeature)
     #lint_request = requests.post(validate_endpoint, data=curGeoDataStr)
