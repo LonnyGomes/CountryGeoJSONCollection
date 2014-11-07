@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import requests
+#import requests
 import json
 import os
 import sys
