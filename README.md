@@ -2,7 +2,7 @@ Country GeoJSON Collection
 ==========================
 
 This is a collection of GeoJSON files of all country boundaries generated from the natural earth dataset.
-Currently only small scale geojson files are generated, the hope is to support larger scale representations.
+The data is derived from the [Natural Earth 1:10m cultural vectors](http://www.naturalearthdata.com/downloads/10m-cultural-vectors/).
 Feel free to use these files in your GIS projects.
 
 Prerequisites
@@ -12,13 +12,13 @@ In addition to GDAL, python and bash are needed as well. You get all this for fr
 
 Usage
 -----
-To make changes to the geojson files, replace the countries.shp and companying files with your dataset.
-Then you must run the *convertShp2JSON* shell script that will generate a countries.geojson file.
+To make changes to the geojson files, replace the countries.shp and accompanying files with your dataset.
+Run the `convertShp2JSON` shell script to generate a countries.geojson file.
 
-Next, run the *genCountriesGeoJSON* python script. If run without arguments, the countries.geojson file will be read and everything is outputed into the geojson folder.
-The python script does support command line options for customization purposes
+The `genCountriesGeoJSON` python script extracts the countries out of the `countries.geojson` file. If run without arguments, the countries.geojson file will be read and everything is outputted into the geojson folder.
+The python script supports command line options for customization purposes
 
-    ./genCountriesGeoJSON.py  [ -k <key_name> | --keyName <key_name> ] | 
+    ./genCountriesGeoJSON.py  [ -k <key_name> | --keyName <key_name> ] |
                               [ -i <input_file> | --inputFile <input_file> ] |
                               [ -o <output_path> | --outputPath <output_path> ] |
                               [ -g <admin_key_name> | --genReadme <admin_key_name> ] |
@@ -26,14 +26,14 @@ The python script does support command line options for customization purposes
 
                -k <arg>, --keyName <arg>     specify the attribute in the geojson properties object
                                              to use as primary key
-                                             this should be a unique identifier, preferably the country 
+                                             this should be a unique identifier, preferably the country
                                              code or another identifying value
 
                -i <arg> , --inputFile <arg>  specify the source geojson file to read in
                                              this file should be a feature collection of country
                                              geometries deprojected to WGS84
 
-               -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be 
+               -o <arg>, --outputPath <arg>  specify the output directory all geojson files should be
                                              created in
 
                -g <arg>, --genReadme <arg>   specify the attribute in the geojson properties object that
