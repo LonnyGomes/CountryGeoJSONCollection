@@ -46,7 +46,7 @@ To generate the topojson files, you must have node installed and run the followi
 
 ```
 $ npm install
-$ node index.js
+$ npm start
 ```
 
 Examples
