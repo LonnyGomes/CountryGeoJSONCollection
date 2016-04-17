@@ -5,6 +5,8 @@ This is a collection of GeoJSON files of all country boundaries generated from t
 The data is derived from the [Natural Earth 1:10m cultural vectors](http://www.naturalearthdata.com/downloads/10m-cultural-vectors/).
 Feel free to use these files in your GIS projects.
 
+The generated list of all countries from the Natural Earth dataset [can be found here in GeoJSON format](https://github.com/LonnyGomes/CountryGeoJSONCollection/tree/master/geojson#geojson-countries-list).
+
 Prerequisites
 -------------
 To regenerate the geojson files, ogr2ogr is used which is part of GDAL and can be downloaded [here](http://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries).
