@@ -11,6 +11,7 @@ inputFile="countries.geojson"
 outputPath = "geojson"
 adminNameKey=None
 willForceUpdate=0
+geojsonLinks={}
 #shouldLint = 1
 #validate_endpoint = 'http://geojsonlint.com/validate'
 
@@ -85,7 +86,7 @@ for curFeature in geoFeatures:
         curAdminVal = curProperties[adminNameKey]
         if (curAdminVal):
             linkStr = u"-   [{0}](../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
-            fpAdmin.write(linkStr.encode("utf-8"))
+            geojsonLinks[curAdminVal] = linkStr
 
 
     curFilename = outputPath + os.sep +  curKey + ".geojson"
@@ -110,4 +111,8 @@ for curFeature in geoFeatures:
         print "Failed to create file:" + curFilename
 
 if adminNameKey:
+    countriesList = sorted(list(geojsonLinks.keys()), key=lambda s: s.lower())
+
+    for countryKey in countriesList:
+        fpAdmin.write(geojsonLinks[countryKey].encode("utf-8"))
     fpAdmin.close()
