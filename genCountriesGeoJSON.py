@@ -11,6 +11,7 @@ inputFile="countries.geojson"
 outputPath = "geojson"
 adminNameKey=None
 willForceUpdate=0
+geojsonLinks={}
 #shouldLint = 1
 #validate_endpoint = 'http://geojsonlint.com/validate'
 
@@ -37,8 +38,8 @@ if len(sys.argv) > 1:
 
     except getopt.GetoptError as e:
         print """Invalid syntax!
-        Usage: -k | --keyName <attribute key name in geojson file> 
-               -i | --inputFile  <input geojson file> 
+        Usage: -k | --keyName <attribute key name in geojson file>
+               -i | --inputFile  <input geojson file>
                -o | --outputPath <output path>
                -g | --genReadme <attribute key for country name in geojson file>
                -f if supplied, existing files will be overwritten
@@ -69,7 +70,7 @@ if adminNameKey:
     readmePath = outputPath + os.sep + "README.md"
     try:
         fpAdmin = open(readmePath, "w")
-        fpAdmin.write("GeoJSON Countries list\n=====================\n")
+        fpAdmin.write("# GeoJSON Countries list\n\n")
     except IOError:
         print "Could not open %s for writing!" % readmePath
         adminNameKey = None
@@ -77,15 +78,15 @@ if adminNameKey:
 for curFeature in geoFeatures:
     curProperties = curFeature["properties"]
     curKey = curProperties[featureKey]
-    
+
     print "Creating geojson file for " + curKey
 
     #if and admin key is defined, write out current country to readme file
     if adminNameKey:
         curAdminVal = curProperties[adminNameKey]
         if (curAdminVal):
-            linkStr = u" - [{0}](../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
-            fpAdmin.write(linkStr.encode("utf-8"))
+            linkStr = u"-   [{0}](../../../blob/master/{1}/{2}.geojson)\n".format(curAdminVal, outputPath, curKey)
+            geojsonLinks[curAdminVal] = linkStr
 
 
     curFilename = outputPath + os.sep +  curKey + ".geojson"
@@ -96,7 +97,7 @@ for curFeature in geoFeatures:
         else:
             print "File already exists!"
             continue
-    
+
     curGeoDataStr = json.dumps(curFeature)
     #lint_request = requests.post(validate_endpoint, data=curGeoDataStr)
     #print lint_request.json()
@@ -110,4 +111,8 @@ for curFeature in geoFeatures:
         print "Failed to create file:" + curFilename
 
 if adminNameKey:
+    countriesList = sorted(list(geojsonLinks.keys()), key=lambda s: s.lower())
+
+    for countryKey in countriesList:
+        fpAdmin.write(geojsonLinks[countryKey].encode("utf-8"))
     fpAdmin.close()
