@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "topojson": "~1.4.3",
-    "underscore": "~1.5.2"
+    "underscore": "~1.12.1"
   },
   "devDependencies": {},
   "scripts": {
